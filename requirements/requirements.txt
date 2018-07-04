@@ -1,5 +1,5 @@
 flask==0.12.2
-psycopg2==2.7.4
+psycopg2==2.7.4 --no-binary psycopg2
 flask-sqlalchemy==2.3.2
 sqlalchemy==1.1.14
 requests==2.20.0
