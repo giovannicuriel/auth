@@ -2,8 +2,8 @@
 # getting information about permissions, groups and users
 import sqlalchemy.orm.exc as orm_exceptions
 
-from database.Models import User, Group
-from database.flaskAlchemyInit import HTTPRequestError
+from auth.database.Models import User, Group
+from auth.database.flaskAlchemyInit import HTTPRequestError
 
 
 def get_user_direct_permissions(db_session, user):

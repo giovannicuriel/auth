@@ -1,10 +1,11 @@
 import sqlalchemy.orm.exc as orm_exceptions
 
-from database.Models import Permission, User, Group
-from database.Models import UserPermission, GroupPermission, UserGroup
-from database.flaskAlchemyInit import HTTPRequestError
-import database.Cache as cache
-from database.Models import MVUserPermission, MVGroupPermission
+from auth.database.Models import Permission, User, Group
+from auth.database.Models import UserPermission, GroupPermission, UserGroup
+from auth.database.flaskAlchemyInit import HTTPRequestError
+import auth.database.Cache as cache
+from auth.database.flaskAlchemyInit import log
+from auth.database.Models import MVUserPermission, MVGroupPermission
 
 from dojot.module import Log
 

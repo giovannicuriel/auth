@@ -212,11 +212,11 @@ def create_database(num_retries=10, interval=3):
     attempt = 0
     while attempt < num_retries:
         try:
-            connection = psycopg2.connect(user=CONFIG.dbUser, password=CONFIG.dbPdw, host=CONFIG.dbHost)
+            connection = psycopg2.connect(user=CONFIG.db_user, password=CONFIG.db_password, host=CONFIG.db_address)
             print ("postgres ok")
             break
         except Exception as e:
-            print("Failed to connect to database")
+            print(f"Failed to connect to database: {e}")
         
         attempt += 1
         sleep(interval)
@@ -225,13 +225,13 @@ def create_database(num_retries=10, interval=3):
         print("Database took too long to boot. Giving up.")
         exit(1)
 
-    if CONFIG.createDatabase:
+    if CONFIG.create_database:
         connection.autocommit = True
         cursor = connection.cursor()
-        cursor.execute("select true from pg_database where datname = '%s';" % CONFIG.dbName)
+        cursor.execute("select true from pg_database where datname = '%s';" % CONFIG.db_name)
         if len(cursor.fetchall()) == 0:
             print("will attempt to create database")
-            cursor.execute("CREATE database %s;" % CONFIG.dbName)
+            cursor.execute("CREATE database %s;" % CONFIG.db_name)
             print("creating schema")
             db.create_all()
         else:

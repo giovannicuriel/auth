@@ -4,8 +4,8 @@ import binascii
 import os
 from requests import ConnectionError
 
-import conf
-from database.flaskAlchemyInit import HTTPRequestError
+import auth.conf as conf
+from auth.database.flaskAlchemyInit import HTTPRequestError
 
 LOGGER = logging.getLogger('auth.' + __name__)
 LOGGER.addHandler(logging.StreamHandler())
@@ -14,7 +14,7 @@ LOGGER.setLevel(logging.INFO)
 
 def configure_kong(user):
     # Disable Kong is not advised. Only use for debug purposes
-    if conf.kongURL == 'DISABLED':
+    if conf.kongURL == '':
         return {
                 'key': 'nokey',
                 'secret': str(binascii.hexlify(os.urandom(16)), 'ascii'),
@@ -63,7 +63,7 @@ def configure_kong(user):
 
 # Invalidate old kong shared secret
 def revoke_kong_secret(username, token_id):
-    if conf.kongURL == 'DISABLED':
+    if conf.kongURL == '':
         return
     try:
         requests.delete("%s/consumers/%s/jwt/%s"
@@ -109,7 +109,7 @@ def reset_kong_secret(username, token_id):
 
 
 def remove_from_kong(user):
-    if conf.kongURL == 'DISABLED':
+    if conf.kongURL == '':
         return
     try:
         requests.delete("%s/consumers/%s" % (conf.kongURL, user))

@@ -9,10 +9,11 @@ from pbkdf2 import crypt
 from sqlalchemy.orm import exc as orm_exceptions
 from sqlalchemy import exc as sqlalchemy_exceptions
 
-import conf
+import auth.conf as conf
 
-from database.flaskAlchemyInit import HTTPRequestError
-from database.Models import User
+from auth.database.flaskAlchemyInit import HTTPRequestError
+from auth.database.Models import User
+from auth.database.flaskAlchemyInit import log
 from auth.alarms import AlarmError
 
 from dojot.module import Log

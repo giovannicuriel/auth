@@ -11,11 +11,11 @@ import sqlalchemy.orm.exc as orm_exceptions
 from difflib import SequenceMatcher
 from marisa_trie import Trie
 
-from database.flaskAlchemyInit import HTTPRequestError
-from database.historicModels import PasswdInactive, PasswordRequestInactive
-from database.Models import PasswordRequest, User
-from utils.emailUtils import send_mail
-import conf
+from auth.database.flaskAlchemyInit import HTTPRequestError
+from auth.database.historicModels import PasswdInactive, PasswordRequestInactive
+from auth.database.Models import PasswordRequest, User
+from auth.utils.emailUtils import send_mail
+import auth.conf as conf
 
 LOGGER = logging.getLogger('auth.' + __name__)
 LOGGER.addHandler(logging.StreamHandler())

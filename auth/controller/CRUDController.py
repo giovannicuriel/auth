@@ -5,19 +5,20 @@ delete Users, groups and permissions
 import re
 import sqlalchemy.orm.exc as orm_exceptions
 
-import controller.PasswordController as password
-from database.Models import Permission, User, Group, PermissionEnum, PermissionTypeEnum
-import controller.RelationshipController as rship
-from database.Models import UserPermission, GroupPermission, UserGroup
-from database.flaskAlchemyInit import HTTPRequestError
-from database.inputConf import UserLimits, PermissionLimits, GroupLimits
-import database.Cache as cache
-import database.historicModels as inactiveTables
-import conf
-import kongUtils
-from controller.KafkaPublisher import Publisher
-import controller.PasswordController as pwdc
-from database.Models import MVUserPermission, MVGroupPermission
+import auth.controller.PasswordController as password
+from auth.database.Models import Permission, User, Group, PermissionEnum, PermissionTypeEnum
+import auth.controller.RelationshipController as rship
+from auth.database.Models import UserPermission, GroupPermission, UserGroup
+from auth.database.flaskAlchemyInit import HTTPRequestError
+from auth.database.inputConf import UserLimits, PermissionLimits, GroupLimits
+import auth.database.Cache as cache
+import auth.database.historicModels as inactiveTables
+import auth.conf as conf
+import auth.kongUtils as kongUtils
+from auth.database.flaskAlchemyInit import log
+from auth.dojot.KafkaPublisher import Publisher
+import auth.controller.PasswordController as pwdc
+from auth.database.Models import MVUserPermission, MVGroupPermission
 
 from dojot.module import Log
 
@@ -110,7 +111,7 @@ def create_user(db_session, user: User, requester):
 
     LOGGER.debug("... user e-mail is not being used.")
 
-    if conf.emailHost == 'NOEMAIL':
+    if conf.emailHost == '':
         user['salt'], user['hash'] = password.create_pwd(conf.temporaryPassword)
 
     # Last field to be filled automatically, before parsing

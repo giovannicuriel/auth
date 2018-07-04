@@ -1,11 +1,11 @@
 import smtplib
 from email.mime.text import MIMEText
 
-import conf
+import auth.conf as conf
 
 
 def send_mail(to, subject, html_msg):
-    if conf.emailHost == 'NOEMAIL':
+    if conf.emailHost == '':
         return
     # TODO: I think we should put this function in a worker thread
     msg = MIMEText(html_msg, 'html')

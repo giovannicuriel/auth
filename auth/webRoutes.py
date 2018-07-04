@@ -10,12 +10,12 @@ from flask import jsonify
 import json
 
 import auth.conf as conf
-import controller.CRUDController as crud
-import controller.RelationshipController as rship
-import controller.PDPController as pdpc
-import controller.AuthenticationController as auth
-import controller.ReportController as reports
-import controller.PasswordController as pwdc
+import auth.controller.CRUDController as crud
+import auth.controller.RelationshipController as rship
+import auth.controller.PDPController as pdpc
+import auth.controller.AuthenticationController as auth
+import auth.controller.ReportController as reports
+import auth.controller.PasswordController as pwdc
 import auth.kongUtils as kong
 from database.flaskAlchemyInit import app, db, format_response
 from database.flaskAlchemyInit import HTTPRequestError, make_response, load_json_from_request
@@ -344,7 +344,7 @@ def get_group_users(group):
 # password related endpoints
 @app.route('/password/reset/<username>', methods=['POST'])
 def passwd_reset_request(username):
-    if conf.emailHost == 'NOEMAIL':
+    if conf.emailHost == '':
         return format_response(501, "Feature not configured")
     try:
         pwdc.create_password_reset_request(db.session, username)

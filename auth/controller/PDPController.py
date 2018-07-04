@@ -1,11 +1,11 @@
 import re
 
-from database.Models import PermissionEnum, UserGroup
-from database.Models import MVUserPermission, MVGroupPermission
-from database.flaskAlchemyInit import HTTPRequestError
-from controller.AuthenticationController import get_jwt_payload
-import database.Cache as cache
-
+from auth.database.Models import PermissionEnum, UserGroup
+from auth.database.Models import MVUserPermission, MVGroupPermission
+from auth.database.flaskAlchemyInit import HTTPRequestError
+from auth.controller.AuthenticationController import get_jwt_payload
+import auth.database.Cache as cache
+from auth.database.flaskAlchemyInit import log
 from dojot.module import Log
 
 LOGGER = Log().color_log()

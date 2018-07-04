@@ -12,7 +12,7 @@ from flask import Flask
 from flask import make_response as fmake_response
 from flask_sqlalchemy import SQLAlchemy
 from logging.handlers import SysLogHandler
-import conf as dbconf
+import auth.conf as dbconf
 
 
 # Make the initial flask + alchem configuration
@@ -23,7 +23,7 @@ formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 
 
 # create a logger for our application
-print("dbconf: {}".format(json.dumps(dbconf.dbName)))
+print("dbconf: {}".format(json.dumps(dbconf.db_name)))
 if dbconf.logMode == 'STDOUT':
     streamLogger = logging.StreamHandler()
     streamLogger.setFormatter(formatter)
@@ -42,7 +42,7 @@ app.logger.setLevel(logging.DEBUG)
 
 # Select database driver
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres+psycopg2://{}:{}@{}/{}".format(
-    dbconf.dbUser, dbconf.dbPdw, dbconf.dbHost, dbconf.dbName
+    dbconf.db_user, dbconf.db_password, dbconf.db_host, dbconf.db_name
 )
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
