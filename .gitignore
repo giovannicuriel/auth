@@ -6,3 +6,6 @@ docs/build/
 auth.egg-info
 .idea/
 .vscode/
+build/
+dist/
+venv/
