@@ -82,7 +82,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-#html_theme = 'alabaster'
+# html_theme = 'alabaster'
 
 html_theme = "sphinx_rtd_theme"
 
@@ -183,6 +183,6 @@ rst_epilog = """
 .. _Github pages API description: https://dojot.github.io/{0}/apiary_{1}.html
 """.format(project, os.environ['READTHEDOCS_VERSION'])
 
+
 def setup(app):
     app.add_stylesheet('css/theme_overrides.css')
-
