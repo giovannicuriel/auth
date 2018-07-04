@@ -13,11 +13,11 @@ services:
     environment:
       AUTH_DB_HOST: "postgres"
       AUTH_DB_USER: "kong"
-      AUTH_KONG_URL: "DISABLED"
+      KONG_URL: ""
       AUTH_CACHE_HOST: "auth-redis"
       AUTH_CACHE_NAME: "redis"
-      RABBITMQ_HOST: "DISABLED"
-      KAFKA_HOST: "DISABLED"
+      RABBITMQ_HOST: ""
+      KAFKA_HOST: ""
       AUTH_PASSWD_BLACKLIST: "./auth/password_blacklist.txt"
 
   auth-redis:
