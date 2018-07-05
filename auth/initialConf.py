@@ -9,13 +9,13 @@ from pbkdf2 import crypt
 from sqlalchemy import exc as sqlalchemy_exceptions
 import psycopg2
 
-from database.flaskAlchemyInit import db
-from database.Models import *
-from database.historicModels import *
-from database.materialized_view_factory import *
-import conf as CONFIG
+from auth.database.flaskAlchemyInit import db
+from auth.database.Models import *
+from auth.database.historicModels import *
+from auth.database.materialized_view_factory import *
+import auth.conf as CONFIG
 
-import kongUtils as kong
+import auth.kongUtils as kong
 
 
 def create_users():
