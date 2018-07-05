@@ -11,13 +11,13 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      AUTH_DB_HOST: "postgres"
+      AUTH_DB_ADDRESS: "postgres"
       AUTH_DB_USER: "kong"
       KONG_URL: ""
-      AUTH_CACHE_HOST: "auth-redis"
+      AUTH_CACHE_ADDRESS: "auth-redis"
       AUTH_CACHE_NAME: "redis"
-      RABBITMQ_HOST: ""
-      KAFKA_HOST: ""
+      RABBITMQ_ADDRESS: ""
+      KAFKA_ADDRESS: ""
       AUTH_PASSWD_BLACKLIST: "./auth/password_blacklist.txt"
 
   auth-redis:

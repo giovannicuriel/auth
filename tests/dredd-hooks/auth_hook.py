@@ -1,8 +1,8 @@
 import dredd_hooks as hooks
 import json
-import controller.CRUDController as crud
-from database.flaskAlchemyInit import db
-from database.flaskAlchemyInit import HTTPRequestError
+import auth.controller.CRUDController as crud
+from auth.database.flaskAlchemyInit import db
+from auth.database.flaskAlchemyInit import HTTPRequestError
 from crud_api_hook import create_sample_groups
 
 

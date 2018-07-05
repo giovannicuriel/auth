@@ -1,10 +1,10 @@
 import dredd_hooks as hooks
-import controller.CRUDController as crud
-import controller.RelationshipController as rship
+import auth.controller.CRUDController as crud
+import auth.controller.RelationshipController as rship
 import crud_api_hook as crud
 import auth_hook as auth
-from database.flaskAlchemyInit import db, HTTPRequestError
-
+from auth.database.flaskAlchemyInit import db, HTTPRequestError
+from auth.database.flaskAlchemyInit import log
 from dojot.module import Log
 
 LOGGER = Log().color_log()

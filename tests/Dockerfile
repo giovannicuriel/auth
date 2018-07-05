@@ -6,9 +6,9 @@ RUN mkdir -p /usr/src/app/requirements && mkdir /usr/src/app/auth && mkdir /usr/
 
 WORKDIR /usr/src/app
 
-ADD . /usr/src/app
+COPY ./requirements/requirements.txt requirements/requirements.txt
+COPY ./tests/requirements.txt tests/requirements.txt
 RUN pip install -r requirements/requirements.txt -r tests/requirements.txt
-
-
-ENV PYTHONPATH=${PYTHONPATH}:/usr/src/app/auth
+COPY . /usr/src/app
+RUN ["python3", "setup.py", "install"]
 CMD ["./tests/start-test.sh"]
