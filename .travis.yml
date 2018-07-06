@@ -3,9 +3,6 @@ services:
   - docker
 python:
   - '3.6'
-cache:
-  directories:
-  - node_modules
 script:
   - 'docker build -t ${TRAVIS_REPO_SLUG} .'
   - 'docker build -t dredd-tests . -f ./tests/Dockerfile'
