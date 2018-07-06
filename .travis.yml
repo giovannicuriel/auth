@@ -1,13 +1,32 @@
 language: python
+sudo: required
 services:
-  - docker
+  - redis-server
+  - postgresql
+addons:
+  postgresql: "9.4"
 python:
   - '3.6'
+install:
+  - pip install -r requirements/requirements.txt -r tests/requirements.txt
+  - npm install -g dredd --no-optional
+before_script:
+  - createuser -d kong
+  - createdb kong
+  - python3 setup.py install
+env:
+  global:
+    - AUTH_DB_ADDRESS: "localhost"
+    - AUTH_DB_USER: "kong"
+    - KONG_URL: ""
+    - AUTH_CACHE_ADDRESS: "localhost"
+    - AUTH_CACHE_NAME: "redis"
+    - RABBITMQ_ADDRESS: ""
+    - KAFKA_ADDRESS: ""
+    - AUTH_PASSWD_BLACKLIST: "./auth/password_blacklist.txt"
 script:
-  - 'docker build -t ${TRAVIS_REPO_SLUG} .'
-  - 'docker build -t dredd-tests . -f ./tests/Dockerfile'
-  - 'docker-compose -f ./tests/docker-compose.yml up -d auth-redis postgres'
-  - 'docker-compose -f ./tests/docker-compose.yml run auth'
+  - ./tests/start-test.sh
+  - docker build -t ${TRAVIS_REPO_SLUG} .
 after_success:
   - travis/publish.sh
   - travis/deploy-gh-pages.sh
