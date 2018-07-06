@@ -25,8 +25,8 @@ env:
     - KAFKA_ADDRESS: ""
     - AUTH_PASSWD_BLACKLIST: "./auth/password_blacklist.txt"
 script:
-  - ./tests/start-test.sh
   - docker build -t ${TRAVIS_REPO_SLUG} .
+  - ./tests/start-test.sh
 after_success:
   - travis/publish.sh
   - travis/deploy-gh-pages.sh
