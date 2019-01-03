@@ -17,6 +17,7 @@ import conf as CONFIG
 
 import kongUtils as kong
 
+from auth.healthcheck import HEALTHCHECK, ServiceStatus
 
 def create_users():
     predef_users = [
@@ -221,10 +222,10 @@ def create_database(num_retries=10, interval=3):
             break
         except Exception as e:
             print("Failed to connect to database")
-        
+
         attempt += 1
         sleep(interval)
-    
+
     if connection is None:
         print("Database took too long to boot. Giving up.")
         exit(1)
@@ -240,6 +241,7 @@ def create_database(num_retries=10, interval=3):
             db.create_all()
         else:
             print("Database already exists")
+
 
 create_database()
 populate()

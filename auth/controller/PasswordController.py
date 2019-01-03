@@ -17,6 +17,8 @@ from database.Models import PasswordRequest, User
 from utils.emailUtils import send_mail
 import conf
 
+from auth.healthcheck import HEALTHCHECK, ServiceStatus
+
 LOGGER = logging.getLogger('auth.' + __name__)
 LOGGER.addHandler(logging.StreamHandler())
 LOGGER.setLevel(logging.INFO)
@@ -52,6 +54,7 @@ def load_password_blacklist():
 
 # load password blacklist on startup
 load_password_blacklist()
+HEALTHCHECK.password_compilation_monitor.trigger("loaded", ServiceStatus.systemOk)
 
 
 # check if a password is obvious weak

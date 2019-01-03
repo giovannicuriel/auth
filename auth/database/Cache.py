@@ -8,6 +8,8 @@ import logging
 import conf
 from .flaskAlchemyInit import app
 
+from auth.healthcheck import HEALTHCHECK, ServiceStatus
+
 LOGGER = logging.getLogger('auth.' + __name__)
 LOGGER.addHandler(logging.StreamHandler())
 LOGGER.setLevel(logging.INFO)
@@ -20,15 +22,18 @@ if conf.cacheName == 'redis':
     redis_store = FlaskRedis(app, config_prefix='DBA', strict=False,
                              encoding="utf-8", socket_keepalive=True,
                              charset="utf-8", decode_responses=True)
+    HEALTHCHECK.redis_connection_monitor.trigger("connected", ServiceStatus.systemOk)
 
 elif conf.cacheName == 'NOCACHE':
     LOGGER.warning("Warning. Cache policy set to NOCACHE."
                    "This may degrade PDP performance.")
     redis_store = None
+    HEALTHCHECK.redis_connection_monitor.trigger("not used", ServiceStatus.systemOk)
 
 else:
     LOGGER.error("Currently, there is no support for cache policy "
                  + conf.dbName)
+    HEALTHCHECK.redis_connection_monitor.trigger("not supported", ServiceStatus.systemFail, f"no support for {conf.dbName}")
     exit(-1)
 
 

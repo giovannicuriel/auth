@@ -12,3 +12,4 @@ flask-redis==0.3.0
 marisa_trie==0.7.4
 git+https://github.com/dojot/alarm-client-python.git#egg=dojot-alarmlibrary
 dojot.module==0.0.1a1
+dojot.module.healthcheck==0.0.1a1

@@ -27,6 +27,7 @@ from dojot.module import Log
 
 LOGGER = Log().color_log()
 
+from auth.healthcheck import HEALTHCHECK, ServiceStatus
 
 # Authentication endpoint
 @app.route('/', methods=['POST'])
@@ -412,6 +413,16 @@ def list_tenants():
         return make_response(json.dumps({"tenants": tenants}), 200)
     except HTTPRequestError as err:
         return format_response(err.errorCode, err.message)
+
+@app.route("/healthcheck", methods=["GET"])
+def get_healthcheck():
+    if HEALTHCHECK.service_info.status == ServiceStatus.systemOk:
+        return make_response(f"{HEALTHCHECK.service_info}", 200)
+    elif HEALTHCHECK.service_info.status == ServiceStatus.systemWarning:
+        return make_response(f"{HEALTHCHECK.service_info}", 200)
+    elif HEALTHCHECK.service_info.status == ServiceStatus.systemFail:
+        return make_response(f"{HEALTHCHECK.service_info}", 500)
+
 
 
 # Initializing Kafka publisher
